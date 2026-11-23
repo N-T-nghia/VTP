@@ -38,7 +38,7 @@ var reportData = {
       "name": "Sơn tường mặt trước trục 1-12",
       "unit": "%",
       "plannedVolume": 100,
-      "actualVolume": 20,
+      "actualVolume": 30,
       "plannedStart": "2026-11-10",
       "plannedEnd": "2026-12-10",
       "actualStart": "2026-11-18",
@@ -118,7 +118,7 @@ var reportData = {
       "name": "Điện MEP trục 1-12 (điện, nước)",
       "unit": "%",
       "plannedVolume": 100,
-      "actualVolume": 60,
+      "actualVolume": 70,
       "plannedStart": "2026-11-01",
       "plannedEnd": "2026-12-13",
       "actualStart": "2026-11-01",
@@ -134,7 +134,7 @@ var reportData = {
       "name": "PCCC trục 1-12",
       "unit": "%",
       "plannedVolume": 100,
-      "actualVolume": 60,
+      "actualVolume": 65,
       "plannedStart": "2026-11-01",
       "plannedEnd": "2026-12-14",
       "actualStart": "2026-11-01",
@@ -150,7 +150,7 @@ var reportData = {
       "name": "Ngói trục 1-12",
       "unit": "%",
       "plannedVolume": 100,
-      "actualVolume": 90,
+      "actualVolume": 95,
       "plannedStart": "2026-11-01",
       "plannedEnd": "2026-11-20",
       "actualStart": "2026-11-01",
@@ -503,7 +503,7 @@ var reportData = {
       "location": "Toàn bộ lan can",
       "start": "27/11",
       "end": "30/11",
-      "responsible": "Đội inox",
+      "responsible": "Đội inox trường vũ",
       "priority": "medium"
     },
     {
@@ -511,7 +511,7 @@ var reportData = {
       "location": "Toàn bộ",
       "start": "28/11",
       "end": "05/12",
-      "responsible": "Đội cửa — A. Bình",
+      "responsible": "Đội cửa",
       "priority": "medium"
     },
     {

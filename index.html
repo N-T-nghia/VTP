@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Báo cáo tiến độ công trình</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-left">
+    <h1 id="project-name">—</h1>
+    <p class="project-meta" id="project-meta">—</p>
+  </div>
+  <div class="topbar-right">
+    <span class="badge" id="revision">—</span>
+    <span class="badge badge-muted" id="updated-at">—</span>
+    <a class="btn-print no-print" href="admin.html" style="text-decoration:none;background:#2563eb;">Quản trị</a>
+    <button class="btn-print no-print" onclick="window.print()">In PDF</button>
+  </div>
+</header>
+
+<nav class="tabs no-print">
+  <a href="#short-report">Tóm tắt</a>
+  <a href="#summary">Tổng quan</a>
+  <a href="#scurve">S-Curve</a>
+  <a href="#wbs">Hạng mục</a>
+  <a href="#gantt">Gantt</a>
+  <a href="#milestones">Mốc</a>
+  <a href="#photos">Hình ảnh</a>
+  <a href="#weekly">Tuần này</a>
+  <a href="#measures">Biện pháp</a>
+  <a href="#risks">Rủi ro</a>
+</nav>
+
+<main>
+
+  <!-- BÁO CÁO RÚT GỌN -->
+  <section id="short-report" class="card short-report-card">
+    <div class="sr-header">
+      <div>
+        <div class="sr-eyebrow" id="sr-period">—</div>
+        <h2 class="sr-title" id="sr-title">—</h2>
+      </div>
+      <span class="pill" id="sr-status">—</span>
+    </div>
+    <p class="sr-headline" id="sr-headline">—</p>
+    <div class="sr-metrics" id="sr-metrics"></div>
+    <div class="sr-grid">
+      <div class="sr-block">
+        <h3>✅ Điểm nổi bật</h3>
+        <ul id="sr-highlights"></ul>
+      </div>
+      <div class="sr-block sr-block-issue">
+        <h3>⚠️ Vấn đề chính</h3>
+        <ul id="sr-issues"></ul>
+      </div>
+      <div class="sr-block sr-block-action">
+        <h3>🎯 Hành động chính</h3>
+        <ul id="sr-actions"></ul>
+      </div>
+    </div>
+    <div class="sr-conclusion">
+      <strong>Kết luận:</strong> <span id="sr-conclusion">—</span>
+    </div>
+  </section>
+
+  <!-- THÔNG TIN DỰ ÁN -->
+  <section class="card">
+    <h2 class="card-title">Thông tin dự án</h2>
+    <div class="info-grid" id="project-info"></div>
+  </section>
+
+  <!-- TỔNG QUAN KPI -->
+  <section id="summary" class="card">
+    <h2 class="card-title">Tổng quan tiến độ</h2>
+    <div class="kpi-grid" id="kpi-grid"></div>
+    <div class="summary-note" id="summary-note"></div>
+  </section>
+
+  <!-- S-CURVE + NHÂN LỰC -->
+  <section id="scurve" class="card">
+    <h2 class="card-title">Đường cong S — Lũy kế tiến độ</h2>
+    <div class="chart-wrap"><canvas id="sCurveChart"></canvas></div>
+
+    <h2 class="card-title" style="margin-top:28px;">Nhân lực huy động theo tháng</h2>
+    <div class="chart-wrap"><canvas id="manpowerChart"></canvas></div>
+  </section>
+
+  <!-- WBS -->
+  <section id="wbs" class="card">
+    <h2 class="card-title">Phân rã công việc (WBS) &amp; đánh giá từng hạng mục</h2>
+    <div class="table-scroll">
+      <table class="data-table" id="wbs-table">
+        <thead>
+          <tr>
+            <th>Mã</th><th>Hạng mục</th>
+            <th class="num">KL (%)</th><th class="num">KH (%)</th><th class="num">TT (%)</th><th class="num">Chênh</th>
+            <th>Người phụ trách</th><th>Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot></tfoot>
+      </table>
+    </div>
+  </section>
+
+  <!-- GANTT -->
+  <section id="gantt" class="card">
+    <h2 class="card-title">
+      Sơ đồ Gantt — Kế hoạch &amp; Thực tế
+      <span class="hint no-print">← vuốt ngang để xem →</span>
+    </h2>
+    <div class="gantt-legend">
+      <span><i class="dot dot-plan"></i> Kế hoạch</span>
+      <span><i class="dot dot-actual"></i> Thực tế</span>
+      <span><i class="dot dot-today"></i> Hôm nay</span>
+      <span><i class="dot dot-green"></i> Đúng / Vượt</span>
+      <span><i class="dot dot-yellow"></i> Cảnh báo</span>
+      <span><i class="dot dot-red"></i> Trễ</span>
+    </div>
+    <div class="gantt-scroll" id="gantt-wrap"></div>
+  </section>
+
+  <!-- MILESTONES -->
+  <section id="milestones" class="card">
+    <h2 class="card-title">Mốc tiến độ chính</h2>
+    <div class="milestone-track" id="milestone-track"></div>
+  </section>
+
+  <!-- HÌNH ẢNH THỰC TẾ -->
+  <section id="photos" class="card">
+    <h2 class="card-title">Hình ảnh hiện trường</h2>
+    <div class="photo-filters" id="photo-filters"></div>
+    <div class="photo-grid" id="photo-grid"></div>
+  </section>
+
+  <!-- TUẦN NÀY -->
+  <section id="weekly" class="card">
+    <h2 class="card-title">Công việc tuần này</h2>
+    <div class="table-scroll">
+      <table class="data-table" id="weekly-table">
+        <thead>
+          <tr><th>STT</th><th>Công việc</th><th>Khu vực</th><th>Bắt đầu</th><th>Kết thúc</th><th>Phụ trách</th><th>Ưu tiên</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- BIỆN PHÁP -->
+  <section id="measures" class="card">
+    <h2 class="card-title">Biện pháp khắc phục &amp; phòng ngừa</h2>
+    <div class="table-scroll">
+      <table class="data-table" id="measures-table">
+        <thead>
+          <tr><th>Vấn đề</th><th>Biện pháp</th><th>Người thực hiện</th><th>Deadline</th><th>Trạng thái</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- RỦI RO -->
+  <section id="risks" class="card">
+    <h2 class="card-title">Khó khăn &amp; Rủi ro</h2>
+    <div class="table-scroll">
+      <table class="data-table" id="risks-table">
+        <thead>
+          <tr><th>Mã</th><th>Mô tả</th><th>Tác động</th><th>Mức độ</th><th>Biện pháp giảm thiểu</th><th>Phụ trách</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p id="footer-info">—</p>
+  </footer>
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-content" onclick="event.stopPropagation()">
+    <button class="lightbox-close" onclick="closeLightbox()">×</button>
+    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox-caption">
+      <h3 id="lightbox-title">—</h3>
+      <p id="lightbox-meta">—</p>
+    </div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="compute.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

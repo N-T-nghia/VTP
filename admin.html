@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản trị báo cáo tiến độ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+
+<header class="admin-header">
+  <div>
+    <h1>Quản trị báo cáo</h1>
+    <p class="admin-sub">Sửa dữ liệu → Lưu tạm → Xuất data.js → Commit lên GitHub</p>
+  </div>
+  <div class="admin-actions">
+    <a class="btn-print" href="index.html" style="text-decoration:none;background:#16a34a;">Xem Dashboard</a>
+    <button class="btn-print" id="btn-save" style="background:#ca8a04;">Lưu tạm</button>
+    <button class="btn-print" id="btn-export" style="background:#2563eb;">Xuất data.js</button>
+    <label class="btn-print" style="background:#475569;cursor:pointer;">
+      Nhập data.js
+      <input type="file" id="btn-import" accept=".js,text/javascript" style="display:none;">
+    </label>
+    <button class="btn-print" id="btn-reset" style="background:#dc2626;">Xóa lưu tạm</button>
+  </div>
+</header>
+
+<div class="admin-banner">
+  ⚠️ Thay đổi được lưu tạm trong trình duyệt này. Để mọi người thấy, bấm <strong>Xuất data.js</strong>, tải file về, ghi đè <code>data.js</code> trong repo và <code>git push</code>.
+</div>
+
+<nav class="admin-tabs" id="admin-tabs"></nav>
+<main class="admin-main" id="admin-main"></main>
+
+<div class="admin-toast" id="admin-toast"></div>
+
+<script src="data.js"></script>
+<script src="compute.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
